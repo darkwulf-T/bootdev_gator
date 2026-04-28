@@ -4,9 +4,11 @@ import (
 	"fmt"
 
 	"github.com/darkwulf-T/bootdev_gator/internal/config"
+	"github.com/darkwulf-T/bootdev_gator/internal/database"
 )
 
 type state struct {
+	db     *database.Queries
 	config *config.Config
 }
 
