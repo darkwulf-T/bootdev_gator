@@ -48,3 +48,12 @@ func handlerRegister(s *state, cmd command) error {
 	fmt.Printf("%+v\n", user)
 	return nil
 }
+
+func handlerReset(s *state, cmd command) error {
+	err := s.db.Reset(context.Background())
+	if err != nil {
+		return err
+	}
+	fmt.Println("Database reset successfully!")
+	return nil
+}

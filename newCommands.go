@@ -6,5 +6,6 @@ func newCommands() *commands {
 	}
 	c.register("login", handlerLogin)
 	c.register("register", handlerRegister)
+	c.register("reset", handlerReset)
 	return c
 }
