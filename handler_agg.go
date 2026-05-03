@@ -18,14 +18,9 @@ func handlerAgg(s *state, cmd command) error {
 	return nil
 }
 
-func handlerAddFeed(s *state, cmd command) error {
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.arguments) < 2 {
 		return fmt.Errorf("a name and url for the feed must be passed")
-	}
-	currentUserName := s.config.CurrentUserName
-	currentUser, err := s.db.GetUser(context.Background(), currentUserName)
-	if err != nil {
-		return err
 	}
 	fname := cmd.arguments[0]
 	furl := cmd.arguments[1]
@@ -36,7 +31,7 @@ func handlerAddFeed(s *state, cmd command) error {
 		UpdatedAt: time.Now(),
 		Name:      fname,
 		Url:       furl,
-		UserID:    currentUser.ID,
+		UserID:    user.ID,
 	})
 	if err != nil {
 		return err
@@ -45,7 +40,7 @@ func handlerAddFeed(s *state, cmd command) error {
 		ID:        uuid.New(),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
-		UserID:    currentUser.ID,
+		UserID:    user.ID,
 		FeedID:    feed.ID,
 	})
 	if err != nil {
